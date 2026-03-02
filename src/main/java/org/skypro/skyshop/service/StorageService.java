@@ -6,6 +6,7 @@ import org.skypro.skyshop.model.product.DiscountedProduct;
 import org.skypro.skyshop.model.product.Product;
 import org.skypro.skyshop.model.product.SimpleProduct;
 import org.springframework.stereotype.Service;
+
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -20,15 +21,14 @@ public class StorageService {
     }
 
     private void initTestData() {
-        // Продукты
-        products.put(UUID.randomUUID(), new SimpleProduct(
-                UUID.randomUUID(), "Яблоко", 150));
-        products.put(UUID.randomUUID(), new DiscountedProduct(
-                UUID.randomUUID(), "Банан", 200, 25));
+        UUID appleId = UUID.randomUUID();
+        products.put(appleId, new SimpleProduct(appleId, "Яблоко", 150));
 
-        // Статьи
-        articles.put(UUID.randomUUID(), new Article(
-                UUID.randomUUID(), "Как выбрать фрукты", "Советы по выбору..."));
+        UUID bananaId = UUID.randomUUID();
+        products.put(bananaId, new DiscountedProduct(bananaId, "Банан", 200, 25));
+
+        UUID articleId = UUID.randomUUID();
+        articles.put(articleId, new Article(articleId, "Как выбрать фрукты", "Советы по выбору..."));
     }
 
     public Collection<Product> getAllProducts() {
@@ -44,5 +44,9 @@ public class StorageService {
                         products.values().stream(),
                         articles.values().stream())
                 .collect(Collectors.toList());
+    }
+
+    public Optional<Product> getProductById(UUID id) {
+        return Optional.ofNullable(products.get(id));
     }
 }

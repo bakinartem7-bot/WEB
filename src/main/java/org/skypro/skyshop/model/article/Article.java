@@ -22,8 +22,8 @@ public final class Article implements Searchable {
     }
 
     @Override
-    public String getId() {  // ← Изменён тип возврата: UUID → String
-        return id.toString();  // ← Преобразуем UUID в строку
+    public String getId() {
+        return id.toString();
     }
 
     @Override
