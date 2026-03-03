@@ -7,7 +7,6 @@ import org.skypro.skyshop.model.BasketItem;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -22,10 +21,10 @@ public class BasketService {
     }
 
     public void addProductToBasket(UUID id) {
-        Optional<Product> product = storageService.getProductById(id);
-        if (product.isEmpty()) {
-            throw new IllegalArgumentException("Товар с ID " + id + " не найден");
-        }
+        Product product = storageService.getProductById(id)
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Товар с ID " + id + " не найден"
+                ));
         productBasket.addProduct(id);
     }
 
@@ -42,6 +41,6 @@ public class BasketService {
                 })
                 .collect(Collectors.toList());
 
-        return new UserBasket(items);
+        return UserBasket.of(items);
     }
 }
