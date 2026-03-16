@@ -10,50 +10,43 @@
     <packaging>jar</packaging>
 
     <name>SkyShop</name>
-    <description>E-commerce application with search, basket, and storage services</description>
+    <description>E-commerce application with Spring Boot</description>
 
-    <!-- Свойства проекта -->
+    <!-- Управление версиями через Spring Boot -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.4</version> <!-- Актуальная версия Spring Boot -->
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
     <properties>
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
 
-    <!-- Зависимости -->
     <dependencies>
-        <!-- JUnit 5 (Jupiter) -->
+        <!-- Spring Boot Starter (базовая функциональность) -->
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.10.2</version>
-            <scope>test</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
+
+        <!-- Starter для работы с JSON (Jackson) -->
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.10.2</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-json</artifactId>
+        </dependency>
+
+        <!-- Starter для тестирования (JUnit 5, Mockito, AssertJ) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
 
-        <!-- Mockito для JUnit 5 -->
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-junit-jupiter</artifactId>
-            <version>5.11.0</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- AssertJ (удобные утверждения в тестах) -->
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>3.25.2</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Lombok (опционально: упрощает код) -->
+        <!-- Lombok (упрощает геттеры/сеттеры/конструкторы) -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -61,18 +54,24 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Spring Boot (если проект на Spring) -->
-        <!-- Уберите, если Spring не используется -->
+        <!-- Если нужны веб-функции (контроллеры, REST API) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-            <version>3.3.4</version>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
 
-    <!-- Плагины сборки -->
     <build>
         <plugins>
+            <!-- Плагин Spring Boot для сборки и запуска -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>org.skypro.skyshop.SkyShopApplication</mainClass>
+                </configuration>
+            </plugin>
+
             <!-- Компилятор Java -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -83,30 +82,7 @@
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
-
-            <!-- Плагин для запуска тестов -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.5</version>
-                <!-- Конфигурация Surefire не обязательна, но полезна для сложных сценариев -->
-            </plugin>
-
-            <!-- Плагин для создания JAR -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.4.1</version>
-            </plugin>
         </plugins>
     </build>
-
-    <!-- Репозитории (если нужны нестандартные) -->
-    <repositories>
-        <repository>
-            <id>maven-central</id>
-            <url>https://repo.maven.apache.org/maven2</url>
-        </repository>
-    </repositories>
 
 </project>
