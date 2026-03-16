@@ -44,7 +44,6 @@ public abstract class Product implements Searchable {
     }
 
     @Override
-    @JsonIgnore
     public String getContentType() {
         return "PRODUCT";
     }
