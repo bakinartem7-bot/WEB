@@ -34,10 +34,6 @@ class SearchServiceTest {
         testProduct = new SimpleProduct(UUID.randomUUID(), "TestProduct", 100.0);
     }
 
-    /**
-     * Тест: поиск при пустом хранилище.
-     * Ожидаем: пустой список результатов.
-     */
     @Test
     void search_whenStorageEmpty_shouldReturnEmptyList() {
         // Настраиваем мок: возвращает пустые коллекции
@@ -48,10 +44,6 @@ class SearchServiceTest {
         assertThat(results).isEmpty();
     }
 
-    /**
-     * Тест: хранилище не пустое, но нет совпадений по запросу.
-     * Ожидаем: пустой список.
-     */
     @Test
     void search_whenNoMatches_shouldReturnEmptyList() {
         List<Searchable> allItems = Collections.singletonList(testProduct);
@@ -62,10 +54,6 @@ class SearchServiceTest {
         assertThat(results).isEmpty();
     }
 
-    /**
-     * Тест: есть подходящий объект (имя содержит "Test").
-     * Ожидаем: список размером 1 с найденным продуктом.
-     */
     @Test
     void search_whenMatchFound_shouldReturnSingleItem() {
         List<Searchable> allItems = Collections.singletonList(testProduct);
@@ -78,9 +66,6 @@ class SearchServiceTest {
                 .contains(testProduct);
     }
 
-    /**
-     * Дополнительный тест: поиск по частичному совпадению в названии.
-     */
     @Test
     void search_partialMatchInName_shouldFindProduct() {
         Product anotherProduct = new SimpleProduct(UUID.randomUUID(), "AnotherTestProduct", 200.0);
